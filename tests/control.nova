@@ -1,0 +1,52 @@
+// control.nova — If/else, logical operators
+
+extern fn printf(fmt: str, val: i64) -> i32;
+extern fn puts(s: str) -> i32;
+
+fn abs_val(x: i64) -> i64 {
+    if x < 0 {
+        return x * -1;
+    }
+    return x;
+}
+
+fn max(a: i64, b: i64) -> i64 {
+    if a > b {
+        return a;
+    } else {
+        return b;
+    }
+}
+
+fn classify(n: i64) -> i32 {
+    if n < 0 {
+        puts("  negative");
+    } else if n == 0 {
+        puts("  zero");
+    } else if n < 10 {
+        puts("  small positive");
+    } else {
+        puts("  large positive");
+    }
+    return 0;
+}
+
+fn main() -> i32 {
+    let a: i64 = -42;
+    let b: i64 = abs_val(a);
+    printf("abs(-42) = %lld\n", b);
+
+    let m: i64 = max(17, 99);
+    printf("max(17, 99) = %lld\n", m);
+
+    puts("Classify -5:");
+    classify(-5);
+    puts("Classify 0:");
+    classify(0);
+    puts("Classify 7:");
+    classify(7);
+    puts("Classify 100:");
+    classify(100);
+
+    return 0;
+}

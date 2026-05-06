@@ -1,0 +1,37 @@
+// arith.nova — Arithmetic and type casting
+
+extern fn printf(fmt: str, val: i64) -> i32;
+
+fn add(a: i64, b: i64) -> i64 {
+    return a + b;
+}
+
+fn multiply(a: i64, b: i64) -> i64 {
+    return a * b;
+}
+
+fn square(x: i64) -> i64 {
+    return x * x;
+}
+
+fn main() -> i32 {
+    let a: i64 = 10;
+    let b: i64 = 20;
+    let sum: i64 = add(a, b);
+    printf("10 + 20 = %lld\n", sum);
+
+    let product: i64 = multiply(a, b);
+    printf("10 * 20 = %lld\n", product);
+
+    let sq: i64 = square(7);
+    printf("7^2     = %lld\n", sq);
+
+    let bitwise: i64 = 0xFF & 0x0F;
+    printf("0xFF & 0x0F = %lld\n", bitwise);
+
+    let shifted: i64 = 1;
+    let result: i64 = shifted << 4;
+    printf("1 << 4  = %lld\n", result);
+
+    return 0;
+}

@@ -1,0 +1,9 @@
+// hello.nova — Classic Hello World in Nova DSL
+
+extern fn puts(s: str) -> i32;
+
+fn main() -> i32 {
+    puts("Hello from the Nova compiler!");
+    puts("Written in C, targeting LLVM IR.");
+    return 0;
+}

@@ -1,0 +1,130 @@
+// showcase.nova — Comprehensive Nova DSL feature showcase
+// Demonstrates: functions, recursion, loops, conditionals, extern calls
+
+extern fn printf(fmt: str, a: i64, b: i64) -> i32;
+extern fn puts(s: str) -> i32;
+extern fn putchar(c: i32) -> i32;
+
+// ── Math utilities ─────────────────────────────────────────────────────────
+
+fn power(base: i64, exp: i64) -> i64 {
+    let mut result: i64 = 1;
+    let mut e: i64 = exp;
+    while e > 0 {
+        result = result * base;
+        e = e - 1;
+    }
+    return result;
+}
+
+fn gcd(a: i64, b: i64) -> i64 {
+    let mut x: i64 = a;
+    let mut y: i64 = b;
+    while y != 0 {
+        let tmp: i64 = y;
+        y = x - (x / y) * y;
+        x = tmp;
+    }
+    return x;
+}
+
+fn lcm(a: i64, b: i64) -> i64 {
+    let g: i64 = gcd(a, b);
+    return (a / g) * b;
+}
+
+// ── Collatz conjecture ─────────────────────────────────────────────────────
+fn collatz_steps(n: i64) -> i64 {
+    let mut x: i64 = n;
+    let mut steps: i64 = 0;
+    while x != 1 {
+        let rem: i64 = x - (x / 2) * 2;
+        if rem == 0 {
+            x = x / 2;
+        } else {
+            x = 3 * x + 1;
+        }
+        steps = steps + 1;
+    }
+    return steps;
+}
+
+// ── Digital root ───────────────────────────────────────────────────────────
+fn digit_sum(n: i64) -> i64 {
+    let mut x: i64 = n;
+    let mut s: i64 = 0;
+    while x > 0 {
+        s = s + (x - (x / 10) * 10);
+        x = x / 10;
+    }
+    return s;
+}
+
+fn digital_root(n: i64) -> i64 {
+    let mut x: i64 = n;
+    while x >= 10 {
+        x = digit_sum(x);
+    }
+    return x;
+}
+
+// ── Print a bar chart ──────────────────────────────────────────────────────
+fn print_bar(n: i64) -> i32 {
+    let mut i: i64 = 0;
+    while i < n {
+        putchar(35);  // '#'
+        i = i + 1;
+    }
+    putchar(10);  // newline
+    return 0;
+}
+
+// ── Entry point ────────────────────────────────────────────────────────────
+fn main() -> i32 {
+    puts("╔════════════════════════════════╗");
+    puts("║  Nova DSL Compiler Showcase    ║");
+    puts("╚════════════════════════════════╝");
+    puts("");
+
+    // Powers of 2
+    puts("Powers of 2:");
+    for i in 0..11 {
+        let p: i64 = power(2, i);
+        printf("  2^%lld = %lld\n", i, p);
+    }
+    puts("");
+
+    // GCD / LCM
+    puts("GCD and LCM:");
+    printf("  gcd(48, 18) = %lld\n", gcd(48, 18), 0);
+    printf("  lcm(4, 6)   = %lld\n", lcm(4, 6),   0);
+    puts("");
+
+    // Collatz
+    puts("Collatz steps:");
+    for i in 1..11 {
+        let s: i64 = collatz_steps(i);
+        printf("  collatz(%lld) = %lld steps\n", i, s);
+    }
+    puts("");
+
+    // Digital roots
+    puts("Digital roots:");
+    for i in 1..11 {
+        let d: i64 = digital_root(i * 11);
+        printf("  dr(%lld) = %lld\n", i * 11, d);
+    }
+    puts("");
+
+    // Bar chart of squares
+    puts("Bar chart: squares 1..8");
+    for i in 1..9 {
+        let sq: i64 = i * i;
+        printf("  %lld^2=%lld\t", i, sq);
+        print_bar(sq / 2);
+    }
+    puts("");
+
+    puts("Nova compilation complete ✓");
+    return 0;
+}

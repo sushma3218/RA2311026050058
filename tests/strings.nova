@@ -1,0 +1,38 @@
+// strings.nova — String operations via libc
+
+extern fn printf(fmt: str, s: str) -> i32;
+extern fn puts(s: str) -> i32;
+extern fn strlen(s: str) -> i64;
+extern fn putchar(c: i32) -> i32;
+
+fn greet(name: str) -> i32 {
+    printf("Hello, %s!\n", name);
+    return 0;
+}
+
+fn print_separator() -> i32 {
+    puts("──────────────────────────");
+    return 0;
+}
+
+fn main() -> i32 {
+    print_separator();
+    greet("Nova");
+    greet("World");
+    greet("LLVM");
+    print_separator();
+
+    let msg: str = "Nova DSL Compiler";
+    let len: i64 = strlen(msg);
+    printf("String: %s\n", msg);
+
+    // Print length via formatted string trick
+    let len_msg: str = "Length computed via strlen()";
+    puts(len_msg);
+
+    puts("Escape sequences: tab\there, newline below:");
+    puts("Done!\n");
+
+    print_separator();
+    return 0;
+}

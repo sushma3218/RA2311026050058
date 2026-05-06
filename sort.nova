@@ -1,0 +1,63 @@
+extern fn new_string_array(size: i64) -> *str;
+extern fn set_string(arr: *str, idx: i64, val: str) -> void;
+extern fn get_string(arr: *str, idx: i64) -> str;
+extern fn string_compare(a: str, b: str) -> i64;
+extern fn print_prompt(i: i64) -> void;
+extern fn read_string() -> str;
+extern fn atoi(s: str) -> i64;
+extern fn printf(fmt: str, s: str) -> i32;
+extern fn puts(s: str) -> i32;
+
+fn selection_sort(arr: *str, n: i64) -> void {
+    for i in 0..n {
+        let min_idx: i64 = i;
+        
+        let j: i64 = i + 1;
+        while j < n {
+            let s_min: str = get_string(arr, min_idx);
+            let s_j: str   = get_string(arr, j);
+            
+            if string_compare(s_j, s_min) < 0 {
+                min_idx = j;
+            }
+            j = j + 1;
+        }
+        
+        if min_idx != i {
+            let temp: str = get_string(arr, i);
+            set_string(arr, i, get_string(arr, min_idx));
+            set_string(arr, min_idx, temp);
+        }
+    }
+}
+
+fn main() -> i32 {
+    puts("--- Selection Sort in Nova ---");
+    puts("Enter number of strings to sort:");
+    let n_str: str = read_string();
+    let n: i64 = atoi(n_str);
+    
+    if n <= 0 {
+        puts("Invalid number.");
+        return 1;
+    }
+    
+    let arr: *str = new_string_array(n);
+    
+    for i in 0..n {
+        print_prompt(i + 1);
+        let input: str = read_string();
+        set_string(arr, i, input);
+    }
+    
+    puts("\nSorting...");
+    selection_sort(arr, n);
+    
+    puts("\n--- Sorted Strings ---");
+    for i in 0..n {
+        let s: str = get_string(arr, i);
+        printf(" %s\n", s);
+    }
+    
+    return 0;
+}

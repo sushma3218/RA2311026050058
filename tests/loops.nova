@@ -1,0 +1,61 @@
+// loops.nova — while loops, for-range, nested loops
+
+extern fn printf(fmt: str, a: i64, b: i64) -> i32;
+extern fn puts(s: str) -> i32;
+
+fn sum_range(from: i64, to: i64) -> i64 {
+    let mut total: i64 = 0;
+    for i in from..to {
+        total = total + i;
+    }
+    return total;
+}
+
+fn factorial(n: i64) -> i64 {
+    let mut result: i64 = 1;
+    let mut i: i64 = 2;
+    while i <= n {
+        result = result * i;
+        i = i + 1;
+    }
+    return result;
+}
+
+fn is_prime(n: i64) -> i64 {
+    if n < 2 {
+        return 0;
+    }
+    let mut i: i64 = 2;
+    while i * i <= n {
+        let rem: i64 = n - (n / i) * i;
+        if rem == 0 {
+            return 0;
+        }
+        i = i + 1;
+    }
+    return 1;
+}
+
+fn main() -> i32 {
+    // Sum 1..100
+    let s: i64 = sum_range(1, 101);
+    printf("Sum 1..100   = %lld\n", s, 0);
+
+    // Factorials
+    puts("Factorials:");
+    for i in 1..11 {
+        let f: i64 = factorial(i);
+        printf("  %lld! = %lld\n", i, f);
+    }
+
+    // Primes up to 30
+    puts("\nPrimes up to 30:");
+    for i in 2..31 {
+        let p: i64 = is_prime(i);
+        if p == 1 {
+            printf("  %lld\n", i, 0);
+        }
+    }
+
+    return 0;
+}

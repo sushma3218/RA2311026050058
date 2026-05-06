@@ -1,0 +1,45 @@
+// fib.nova — Fibonacci: recursive + iterative
+
+extern fn printf(fmt: str, n: i64, val: i64) -> i32;
+extern fn puts(s: str) -> i32;
+
+// Recursive Fibonacci
+fn fib_rec(n: i64) -> i64 {
+    if n <= 1 {
+        return n;
+    }
+    return fib_rec(n - 1) + fib_rec(n - 2);
+}
+
+// Iterative Fibonacci (more efficient)
+fn fib_iter(n: i64) -> i64 {
+    if n <= 1 {
+        return n;
+    }
+    let mut a: i64 = 0;
+    let mut b: i64 = 1;
+    let mut i: i64 = 2;
+    while i <= n {
+        let tmp: i64 = a + b;
+        a = b;
+        b = tmp;
+        i = i + 1;
+    }
+    return b;
+}
+
+fn main() -> i32 {
+    puts("Fibonacci (recursive) first 10 terms:");
+    for i in 0..10 {
+        let val: i64 = fib_rec(i);
+        printf("  fib(%lld) = %lld\n", i, val);
+    }
+
+    puts("\nFibonacci (iterative) first 10 terms:");
+    for i in 0..10 {
+        let val: i64 = fib_iter(i);
+        printf("  fib(%lld) = %lld\n", i, val);
+    }
+
+    return 0;
+}

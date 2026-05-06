@@ -1,0 +1,42 @@
+// structs.nova — Struct declarations
+
+extern fn printf(fmt: str, a: i64, b: i64) -> i32;
+extern fn puts(s: str) -> i32;
+
+struct Point {
+    x: i64,
+    y: i64,
+}
+
+struct Rectangle {
+    width: i64,
+    height: i64,
+}
+
+fn rect_area(w: i64, h: i64) -> i64 {
+    return w * h;
+}
+
+fn rect_perimeter(w: i64, h: i64) -> i64 {
+    return 2 * (w + h);
+}
+
+fn main() -> i32 {
+    let w: i64 = 10;
+    let h: i64 = 5;
+
+    let area: i64 = rect_area(w, h);
+    let perim: i64 = rect_perimeter(w, h);
+
+    puts("Rectangle 10x5:");
+    printf("  Area      = %lld\n", area, 0);
+    printf("  Perimeter = %lld\n", perim, 0);
+
+    let px: i64 = 3;
+    let py: i64 = 4;
+    // Pythagorean distance squared
+    let dist_sq: i64 = px * px + py * py;
+    printf("  dist^2(3,4) = %lld\n", dist_sq, 0);
+
+    return 0;
+}

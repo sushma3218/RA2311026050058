@@ -1,0 +1,7 @@
+extern fn printf(fmt: str, val: i64) -> i32;
+
+fn main() -> i32 {
+    let result = 10 + 10;
+    printf("The result of 10 + 10 is: %lld\n", result);
+    return 0;
+}
